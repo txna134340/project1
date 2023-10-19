@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To do list</title>
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Paytone+One" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Bai Jamjuree" />
+    <link rel="shortcut icon" href="567.png">
+    <!--icon-->
+    <script src="https://code.iconify.design/iconify-icon/1.0.4/iconify-icon.min.js"></script>
+    <link href='https://css.gg/toggle-off.css' rel='stylesheet'>
+    <link href="server.js">
+    
+    <!--css-->
+    <link rel="stylesheet" href="Project.css">
+</head>
+<body>
+    <ul class="navtop">
+        <li id="title">Planner</li>
+        <li><a class="navb" href="log">Hello dokidoki</a></li>
+        <li><a class="navb" id="noti"  href="noti"><iconify-icon icon="bi:bell" style="color: #f9f9f9;" width="20" height="20" ></iconify-icon></a></li>
+        <li id="shp"><a class="navb" href="shop"><iconify-icon icon="ic:round-shopping-cart" style="color: #c8cce0;" width="20" height="20" id="shop"></iconify-icon>shop</a></li>
+        <li id="fav"><a class="navb" href="fav"><iconify-icon icon="el:heart-alt" style="color: #bbbed7;" width="20" height="20"  id="heart"></iconify-icon>fav</a></li>
+    </ul>
+    <nav class="row">
+        <a href="ho" style="color: #5F689F;">home</a>
+        <a href="bu" style="color: #5F689F;">bullet journal</a>
+        <a href="cal.html" style="color: #5F689F;">calender</a>
+        <a href="vi" style="color: #5F689F;">video</a>
+        <a href="sh" style="color: #5F689F;">shops</a>
+        <a href="to" style="color: #5F689F;">to do list</a>
+    </nav>
+    <section>
+        <div class="container">
+            <div class="left-side">
+                <h1 class="headToDo">To do list</h1>
+                <div class="borderTime">
+                    <p class="time">6 AM <input type="text" id="namee" name="name" placeholder="" style="border: none; background: transparent; border-bottom: 1px solid  #000; width: 380px;"></p>
+                    <p class="time">7 AM <input type="text" id="namee" name="name" placeholder="" style="border: none; background: transparent; border-bottom: 1px solid  #000; width: 380px;"></p>
+                    <p class="time">8 AM <input type="text" id="namee" name="name" placeholder="" style="border: none; background: transparent; border-bottom: 1px solid  #000; width: 380px;"></p>
+                    <p class="time">9 AM <input type="text" id="namee" name="name" placeholder="" style="border: none; background: transparent; border-bottom: 1px solid  #000; width: 380px;"></p>
+                    <p class="time">10 AM <input type="text" id="namee" name="name" placeholder="" style="border: none; background: transparent; border-bottom: 1px solid  #000; width: 380px;"></p>
+                </div>
+            </div>
+            <div class="right-side">
+                <p class="date">DATE <input type="date" id="namee" name="name" placeholder="" style="border: none; background: transparent; border-bottom: 1px solid  #000;"></p>
+                <p class="note">NOTE </p>
+                <p class="note_space"><textarea type="text" rows="23" id="namee" name="name" placeholder="" style="border: none; background: transparent;  width: 545px;"></textarea></p>
+                <p class="note">TODAY'S GOAL</p>
+                <p class="goal"><input type="text" id="namee" name="name" placeholder="" style="border: none; background: transparent;  width: 545px;"></p>
+                <p class="goal"><input type="text" id="namee" name="name" placeholder="" style="border: none; background: transparent;  width: 545px;"></p>
+                <p class="goal"><input type="text" id="namee" name="name" placeholder="" style="border: none; background: transparent;  width: 545px;"></p>
+                <p class="goal"><input type="text" id="namee" name="name" placeholder="" style="border: none; background: transparent;  width: 545px;"></p>
+                <p></p>
+                <button tpye="submit" href="project.html"> Submit </button>
+            </div>
+        </div>
+    </section>  
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+    <script>
+            const host = "http://localhost:8000"
+
+app.post('/to_do_list' , async(req, res) => {
+  try {
+      const conn =  await mysql.createConnection(connection);
+      const [maxId] = await conn.query("SELECT MAX(todo_id) AS max_id FROM to_do_list");
+      let nextId = 1;
+
+    if (maxId[0].max_id) {
+        nextId = parseInt(maxId[0].max_id) + 1;
+    }
+      const [data] = await conn.query(
+          "INSERT INTO to_do_list(todo_id, todo_name, users_id) VALUES ( ?, ?, ?)",
+           [
+            nextId, 
+            req.body.todo_name,
+            req.body.users_id,
+            1
+          ])
+      conn.end(); 
+      res.json({
+          "message": "บันทึกข้อมูลสำเร็จแล้ว",
+          "id": nextId,
+          "data": req.body
+      });
+  } catch (error) {
+      res.status(500).json({"message: " :error.message});
+  }
+});
+
+app.delete('/to_do_list', async (req, res) => {
+  try {
+    const conn = await mysql.createConnection(connection);
+    const [data] = await conn.query(
+      "UPDATE to_do_list SET todo_name = ?, users_id = ? WHERE todo_id = ?",
+      [req.body.todo_name, req.body.users_id, req.body.todo_id]
+    );
+    conn.end();
+    res.json({
+      message: "อัปเดตข้อมูลสำเร็จแล้ว",
+      data: req.body
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+app.delete('/to_do_list/:todo_id', async (req, res) => {
+  try {
+    const conn = await mysql.createConnection(connection);
+    const todoId = req.params.todo_id;
+
+    const [data] = await conn.query(
+      "DELETE FROM to_do_list WHERE todo_id = ?",
+      [todoId]
+    );
+
+    conn.end();
+
+    if (data.affectedRows === 0) {
+      res.status(404).json({ message: "ไม่พบรายการที่ต้องการลบ" });
+    } else {
+      res.json({ message: "ลบข้อมูลสำเร็จแล้ว" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+app.put('/to_do_list/:todo_id', async (req, res) => {
+  try {
+    const conn = await mysql.createConnection(connection);
+    const todoId = req.params.todo_id;
+    // ดำเนินการเพื่ออัปเดตข้อมูลในฐานข้อมูลโดยใช้ todoId และ req.body
+    // หลังจากอัปเดตข้อมูลเสร็จแล้วส่งคำตอบเช่น res.json()
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+    </script> 
+</body>
+</html>

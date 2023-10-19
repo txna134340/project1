@@ -1,0 +1,200 @@
+body{
+    margin: 0px;
+    background-color: #FCE4E2;
+}
+.navtop{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #5F689F;
+}
+#title{
+    float: left;
+    display: block;
+    padding-left: 12px;
+    margin-right: 4px;
+    color: white;
+    text-align: center;
+    font-family:'Paytone One';font-style: normal;
+    text-decoration: none;
+    font-size: 30px;
+}  
+.navb{
+    background-color: #8C92B4; 
+    border: none;
+    color: white;
+    padding: 10px 12px;
+    border-radius: 4px;
+    margin: 5px 6px;
+    transition-duration: 0.4s;
+    cursor: pointer;    
+    display: inline-block;
+    display: block;
+    text-align: center;
+    color: white;
+    text-decoration: none;
+    font-family:'Bai Jamjuree';font-style: normal;
+    font-size:16px;
+    float: left;
+}
+#shp{
+    float: right;
+}
+#fav{
+    float: right;
+}
+#noti{
+    background-color: #5F689F;
+}
+#heart{
+    padding-right: 5px;
+    float: left;
+}
+#shop{
+    padding-right: 5px;
+    float: left;
+}
+@media (max-width: 768px) {
+    body {
+        font-size: 14px; 
+    }
+
+    #title {
+        font-size: 24px; 
+    }
+
+    .navb {
+        padding: 8px 10px; 
+        font-size: 14px; 
+    }
+}
+.row{
+    margin: 20px;
+    font-family:'Paytone One';font-style: normal;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+@media (max-width: 768px) {
+    .row {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+.headToDo{
+    color: #BE5454;
+    font-family:'Paytone One';font-style: normal;
+    text-decoration: none;
+    font-size: 70px;
+    text-align: center;
+}
+
+.borderTime{
+    width: 550px;
+    height: 500px;
+    background-color: rgb(171, 173, 214);
+    text-align: left;
+    margin-top: 5px;
+    margin-left: 150px;
+    padding: 10px;
+
+}
+
+.time{
+    padding: 5px;
+    margin-top: 50px;
+    font-size: 20px;
+    font-family:'Paytone One';font-style: normal;
+    text-decoration: none;
+    
+}
+
+.table{
+    width: 570px;
+    border-collapse: collapse;
+    text-align: center;
+    margin-top: 70px;
+    margin-left: 150px;
+}
+
+td {
+    border: none;
+    padding: 10px;
+}
+.cell1 {
+    width: 100px;
+    height: 80px;
+    background-color: #F9F9F9;
+    font-size: 20px;
+    font-family:'Paytone One';font-style: normal;
+    text-decoration: none;
+    
+
+}
+.cell2 {
+    width: 20px;
+    height: 200px;
+    color: white;
+    background-color: #f3999a;
+    font-size: 20px;
+    font-family:'Paytone One';font-style: normal;
+    text-decoration: none;
+}
+.cell3 {
+    width: 20px;
+    height: 50px;
+    color: white;
+    background-color: #D9D9D9;
+    font-size: 20px;
+    font-family:'Paytone One';font-style: normal;
+    text-decoration: none;
+}
+.cell4 {
+    width: 20px;
+    height: 50px;
+    color: white;
+    background-color:#F3999A;
+    font-size: 20px;
+    font-family:'Paytone One';font-style: normal;
+    text-decoration: none;
+}
+
+.date{
+    width: 250px;
+    height: 50px;
+    background-color: #D9D9D9;
+    font-family:'Paytone One';font-style: normal;
+    text-decoration: none;
+    margin: 50px;
+
+}
+
+.note{
+    font-size: 50px;
+    font-family:'Paytone One';font-style: normal;
+    margin: auto;
+
+}
+
+.note_space{
+    width: 550px;
+    height: 350px;
+    background-color: #FAB7A7;
+    resize: vertical;
+}
+
+.goal{
+    width: 550px;
+    height: 50px;
+    background-color: #FFD6BA;
+    resize: vertical;
+}
+
+.container {
+    display: flex;
+}
+.left-side, .right-side {
+    flex: 1;
+}
